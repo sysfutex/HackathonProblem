@@ -37,4 +37,32 @@ HR директору провести хакатон.
 также среднее по всем.
 
 Само приложение не должно скачивать файлы с GitHub во время работы, нужно скачать их и разместить рядом с исходным кодом
-решения. 
+решения.
+
+## [Задача 2: .Net Generic Host](https://github.com/sysfutex/HackathonProblem/tree/task-2-dotnet-generic-host)
+
+Поместить песочницу в .Net Generic Host. Выделить в отдельные зависимости:
+
+* класс, реализующий проведение одного хакатона;
+* класс, реализующий HR менеджера;
+* класс, реализующий HR директора;
+* стратегию HR менеджера.
+
+Например, инициализация хоста может выглядеть следующим образом:
+
+```csharp
+using Microsoft.Extensions.DependencyInjection; 
+using Microsoft.Extensions.Hosting; 
+
+var host = Host.CreateDefaultBuilder(args) 
+    .ConfigureServices((hostContext, services) => 
+    { 
+        services.AddHostedService<HackathonWorker>(); 
+        services.AddTransient<Hackathon>(_ => new Hackathon()); 
+        services.AddTransient<ITeamBuildingStrategy, TeamLeadsHateTheirJuniorsTeamBuildingStrategy>(); 
+        services.AddTransient<HrManager>();
+        services.AddTransient<HrDirector>(); 
+  	}).Build(); 
+
+host.Run(); 
+```
