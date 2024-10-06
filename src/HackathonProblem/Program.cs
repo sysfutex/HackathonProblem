@@ -46,7 +46,7 @@ public class Program
         
             // Подсчет среднего гармонического
             var hrDirector = host.Services.GetRequiredService<IHrDirector>();
-            var harmony = hrDirector.Calc(teams, teamLeadsWishlists, juniorsWishlists);
+            var harmony = hrDirector.CalculateHarmonicMean(teams, teamLeadsWishlists, juniorsWishlists);
             log.LogInformation("harmony: {harmony}", harmony);
         
             average += harmony;

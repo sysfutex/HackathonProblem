@@ -4,7 +4,7 @@ namespace HackathonProblem.Service.Hr.Director;
 
 public class HrDirector : IHrDirector
 {
-    public double Calc(
+    public double CalculateHarmonicMean(
         IEnumerable<Team> teams,
         IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists
     )
