@@ -1,3 +1,4 @@
+using HackathonProblem.Exceptions;
 using Nsu.HackathonProblem.Contracts;
 
 namespace HackathonProblem.Service.Hr.Manager.Strategy;
@@ -91,8 +92,7 @@ public class Marriage : ITeamBuildingStrategy
             }
         }
 
-        // Никогда не выполнится
-        return default;
+        throw new InvalidWishlistException(wishlist, id);
     }
 
     private void RemoveTeam(List<Team> teams, Employee teamLead)
