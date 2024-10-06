@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using HackathonProblem.Config;
 using HackathonProblem.Exception;
 using HackathonProblem.Service.Hackathon;
@@ -8,7 +7,6 @@ using HackathonProblem.Service.Registrar;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Nsu.HackathonProblem.Contracts;
 
 namespace HackathonProblem;
 
@@ -26,8 +24,7 @@ public class HackathonWorker(
     {
         // "Регистрация" участников хакатона (парсинг csv-файлов)
         var (teamLeads, juniors) = registrar.Register();
-        var readOnlyTeamLeads = new ReadOnlyCollection<Employee>(teamLeads.ToList());
-        var readOnlyJuniors = new ReadOnlyCollection<Employee>(juniors.ToList());
+        var (readOnlyTeamLeads, readOnlyJuniors) = (teamLeads.ToList().AsReadOnly(), juniors.ToList().AsReadOnly());
         logger.LogDebug("teamLeads:\n{teamLeads}", string.Join("\n", readOnlyTeamLeads));
         logger.LogDebug("juniors:\n{juniors}", string.Join("\n", readOnlyJuniors));
 
@@ -41,14 +38,13 @@ public class HackathonWorker(
                 // Проведение хакатона (составление вишлистов)
                 var hackathon = new Hackathon();
                 var (teamLeadsWishlists, juniorsWishlists) = hackathon.Start(readOnlyTeamLeads, readOnlyJuniors);
-                var readOnlyTeamLeadsWishlists = new ReadOnlyCollection<Wishlist>(teamLeadsWishlists.ToList());
-                var readOnlyJuniorsWishlists = new ReadOnlyCollection<Wishlist>(juniorsWishlists.ToList());
+                var (readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists) = (teamLeadsWishlists.ToList().AsReadOnly(), juniorsWishlists.ToList().AsReadOnly());
                 logger.LogDebug("teamLeadsWishlists (i: {i}):\n{teamLeadsWishlists}", i, string.Join("\n", readOnlyTeamLeadsWishlists));
                 logger.LogDebug("juniorsWishlists (i: {i}):\n{juniorsWishlists}", i, string.Join("\n", readOnlyJuniorsWishlists));
 
                 // Формирование команд
                 var teams = hrManager.BuildTeams(readOnlyTeamLeads, readOnlyJuniors, readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists);
-                var readOnlyTeams = new ReadOnlyCollection<Team>(teams.ToList());
+                var readOnlyTeams = teams.ToList().AsReadOnly();
                 logger.LogDebug("teams:\n{teams}", string.Join("\n", readOnlyTeams));
 
                 // Подсчет среднего гармонического
