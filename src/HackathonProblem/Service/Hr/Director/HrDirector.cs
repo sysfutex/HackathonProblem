@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using Nsu.HackathonProblem.Contracts;
 
 namespace HackathonProblem.Service.Hr.Director;
@@ -10,9 +9,9 @@ public class HrDirector : IHrDirector
         IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists
     )
     {
-        var readOnlyTeams = new ReadOnlyCollection<Team>(teams.ToList());
-        var readOnlyTeamLeadsWishlists = new ReadOnlyCollection<Wishlist>(teamLeadsWishlists.ToList());
-        var readOnlyJuniorsWishlists = new ReadOnlyCollection<Wishlist>(juniorsWishlists.ToList());
+        var readOnlyTeams = teams.ToList().AsReadOnly();
+        var readOnlyTeamLeadsWishlists = teamLeadsWishlists.ToList().AsReadOnly();
+        var readOnlyJuniorsWishlists = juniorsWishlists.ToList().AsReadOnly();
 
         var teamsCount = readOnlyTeams.Count;
 

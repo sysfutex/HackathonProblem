@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using Nsu.HackathonProblem.Contracts;
 
 namespace HackathonProblem.Service.Hr.Manager.Strategy;
@@ -17,8 +16,8 @@ public class Marriage : ITeamBuildingStrategy
         var freeTeamLeads = new List<Employee>(teamLeads);
         var teamLeadsPreferences = GetTeamLeadsPreferences(teamLeadsWishlists);
 
-        var readOnlyJuniors = new ReadOnlyCollection<Employee>(juniors.ToList());
-        var readOnlyJuniorsWishlists = new ReadOnlyCollection<Wishlist>(juniorsWishlists.ToList());
+        var readOnlyJuniors = juniors.ToList().AsReadOnly();
+        var readOnlyJuniorsWishlists = juniorsWishlists.ToList().AsReadOnly();
 
         // Пока существует свободный тимлид
         while (freeTeamLeads.Count > 0)

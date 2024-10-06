@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using Nsu.HackathonProblem.Contracts;
 
 namespace HackathonProblem.Service.Hackathon;
@@ -11,8 +10,8 @@ public class Hackathon : IHackathon
         IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors
     )
     {
-        var readOnlyTeamLeads = new ReadOnlyCollection<Employee>(teamLeads.ToList());
-        var readOnlyJuniors = new ReadOnlyCollection<Employee>(juniors.ToList());
+        var readOnlyTeamLeads = teamLeads.ToList().AsReadOnly();
+        var readOnlyJuniors = juniors.ToList().AsReadOnly();
 
         return (
             GenerateWishlists(readOnlyTeamLeads, readOnlyJuniors),
@@ -23,7 +22,7 @@ public class Hackathon : IHackathon
     private IEnumerable<Wishlist> GenerateWishlists(IEnumerable<Employee> owners, IEnumerable<Employee> members)
     {
         var wishlists = new List<Wishlist>();
-        var readOnlyMembers = new ReadOnlyCollection<Employee>(members.ToList());
+        var readOnlyMembers = members.ToList().AsReadOnly();
 
         foreach (var owner in owners)
         {
