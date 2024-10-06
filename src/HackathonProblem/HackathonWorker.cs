@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using HackathonProblem.Config;
+using HackathonProblem.Exception;
 using HackathonProblem.Service.Hackathon;
 using HackathonProblem.Service.Hr.Director;
 using HackathonProblem.Service.Hr.Manager;
@@ -35,24 +36,31 @@ public class HackathonWorker(
         var average = 0.0;
         for (var i = 0; i < _hackathonCount; ++i)
         {
-            // Проведение хакатона (составление вишлистов)
-            var hackathon = new Hackathon();
-            var (teamLeadsWishlists, juniorsWishlists) = hackathon.Start(readOnlyTeamLeads, readOnlyJuniors);
-            var readOnlyTeamLeadsWishlists = new ReadOnlyCollection<Wishlist>(teamLeadsWishlists.ToList());
-            var readOnlyJuniorsWishlists = new ReadOnlyCollection<Wishlist>(juniorsWishlists.ToList());
-            logger.LogDebug("teamLeadsWishlists (i: {i}):\n{teamLeadsWishlists}", i, string.Join("\n", readOnlyTeamLeadsWishlists));
-            logger.LogDebug("juniorsWishlists (i: {i}):\n{juniorsWishlists}", i, string.Join("\n", readOnlyJuniorsWishlists));
+            try
+            {
+                // Проведение хакатона (составление вишлистов)
+                var hackathon = new Hackathon();
+                var (teamLeadsWishlists, juniorsWishlists) = hackathon.Start(readOnlyTeamLeads, readOnlyJuniors);
+                var readOnlyTeamLeadsWishlists = new ReadOnlyCollection<Wishlist>(teamLeadsWishlists.ToList());
+                var readOnlyJuniorsWishlists = new ReadOnlyCollection<Wishlist>(juniorsWishlists.ToList());
+                logger.LogDebug("teamLeadsWishlists (i: {i}):\n{teamLeadsWishlists}", i, string.Join("\n", readOnlyTeamLeadsWishlists));
+                logger.LogDebug("juniorsWishlists (i: {i}):\n{juniorsWishlists}", i, string.Join("\n", readOnlyJuniorsWishlists));
 
-            // Формирование команд
-            var teams = hrManager.BuildTeams(readOnlyTeamLeads, readOnlyJuniors, readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists);
-            var readOnlyTeams = new ReadOnlyCollection<Team>(teams.ToList());
-            logger.LogDebug("teams:\n{teams}", string.Join("\n", readOnlyTeams));
+                // Формирование команд
+                var teams = hrManager.BuildTeams(readOnlyTeamLeads, readOnlyJuniors, readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists);
+                var readOnlyTeams = new ReadOnlyCollection<Team>(teams.ToList());
+                logger.LogDebug("teams:\n{teams}", string.Join("\n", readOnlyTeams));
 
-            // Подсчет среднего гармонического
-            var harmony = hrDirector.CalculateHarmonicMean(readOnlyTeams, readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists);
-            logger.LogInformation("harmony: {harmony}", harmony);
+                // Подсчет среднего гармонического
+                var harmony = hrDirector.CalculateHarmonicMean(readOnlyTeams, readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists);
+                logger.LogInformation("harmony: {harmony}", harmony);
 
-            average += harmony;
+                average += harmony;
+            }
+            catch (InvalidWishlistException exception)
+            {
+                logger.LogError($"An error occurred while creating the wishlist. {exception.Message}");
+            }
         }
 
         average /= _hackathonCount;
