@@ -24,9 +24,9 @@ public class Program
         // "Регистрация" участников хакатона (парсинг csv-файлов)
         var registrar = host.Services.GetRequiredService<IRegistrar>();
         var (teamLeads, juniors) = registrar.Register();
-        var (teamLeadsList, juniorsList) = (teamLeads.ToList(), juniors.ToList());
-        log.LogDebug("teamLeads:\n{teamLeads}", string.Join("\n", teamLeadsList));
-        log.LogDebug("juniors:\n{juniors}", string.Join("\n", juniorsList));
+        var (readOnlyTeamLeads, readOnlyJuniors) = (teamLeads.ToList().AsReadOnly(), juniors.ToList().AsReadOnly());
+        log.LogDebug("teamLeads:\n{teamLeads}", string.Join("\n", readOnlyTeamLeads));
+        log.LogDebug("juniors:\n{juniors}", string.Join("\n", readOnlyJuniors));
 
         var hackathonCount = host.Services.GetRequiredService<IOptions<HackathonConfig>>().Value.HackathonCount;
         log.LogDebug("hackathonCount: {hackathonCount}", hackathonCount);
@@ -38,18 +38,20 @@ public class Program
             {
                 // Проведение хакатона (составление вишистов)
                 var hackathon = host.Services.GetRequiredService<IHackathon>();
-                var (teamLeadsWishlists, juniorsWishlists) = hackathon.Start(teamLeadsList, juniorsList);
-                log.LogDebug("teamLeadsWishlists (i: {i}):\n{teamLeadsWishlists}", i, string.Join("\n", teamLeadsWishlists));
-                log.LogDebug("juniorsWishlists (i: {i}):\n{juniorsWishlists}", i, string.Join("\n", juniorsWishlists));
+                var (teamLeadsWishlists, juniorsWishlists) = hackathon.Start(readOnlyTeamLeads, readOnlyJuniors);
+                var (readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists) = (teamLeadsWishlists.ToList().AsReadOnly(), juniorsWishlists.ToList().AsReadOnly());
+                log.LogDebug("teamLeadsWishlists (i: {i}):\n{teamLeadsWishlists}", i, string.Join("\n", readOnlyTeamLeadsWishlists));
+                log.LogDebug("juniorsWishlists (i: {i}):\n{juniorsWishlists}", i, string.Join("\n", readOnlyJuniorsWishlists));
 
                 // Формирование команд
                 var hrManager = host.Services.GetRequiredService<IHrManager>();
-                var teams = hrManager.BuildTeams(teamLeadsList, juniorsList, teamLeadsWishlists, juniorsWishlists);
-                log.LogDebug("teams:\n{teams}", string.Join("\n", teams));
+                var teams = hrManager.BuildTeams(readOnlyTeamLeads, readOnlyJuniors, readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists);
+                var readOnlyTeams = teams.ToList().AsReadOnly();
+                log.LogDebug("teams:\n{teams}", string.Join("\n", readOnlyTeams));
 
                 // Подсчет среднего гармонического
                 var hrDirector = host.Services.GetRequiredService<IHrDirector>();
-                var harmony = hrDirector.CalculateHarmonicMean(teams, teamLeadsWishlists, juniorsWishlists);
+                var harmony = hrDirector.CalculateHarmonicMean(readOnlyTeams, readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists);
                 log.LogInformation("harmony: {harmony}", harmony);
 
                 average += harmony;
