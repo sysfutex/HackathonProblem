@@ -1,3 +1,4 @@
+using HackathonProblem.Exception;
 using Nsu.HackathonProblem.Contracts;
 
 namespace HackathonProblem.Service.Hr.Director;
@@ -42,7 +43,6 @@ public class HrDirector : IHrDirector
             }
         }
 
-        // Никогда не выполнится
-        return default;
+        throw new InvalidWishlistException(wishlist, employeeId);
     }
 }
