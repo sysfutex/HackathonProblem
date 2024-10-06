@@ -49,7 +49,7 @@ public class HackathonWorker(
             logger.LogDebug("teams:\n{teams}", string.Join("\n", readOnlyTeams));
 
             // Подсчет среднего гармонического
-            var harmony = hrDirector.Calc(readOnlyTeams, readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists);
+            var harmony = hrDirector.CalculateHarmonicMean(readOnlyTeams, readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists);
             logger.LogInformation("harmony: {harmony}", harmony);
 
             average += harmony;
