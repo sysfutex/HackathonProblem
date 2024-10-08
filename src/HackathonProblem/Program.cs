@@ -6,8 +6,8 @@ using HackathonProblem.Service.Registrar;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Nsu.HackathonProblem.Contracts;
+using Serilog;
 
 namespace HackathonProblem;
 
@@ -15,6 +15,8 @@ public static class Program
 {
     public static async Task Main(string[] args)
     {
+        ConfigureLogger();
+
         var host = Host.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration((context, config) =>
             {
@@ -35,19 +37,17 @@ public static class Program
                 services.AddSingleton<ITeamBuildingStrategy, Marriage>();
                 services.AddSingleton<IHrManager, HrManager>();
                 services.AddSingleton<IHrDirector, HrDirector>();
-            })
-            .ConfigureLogging((context, logging) =>
-            {
-                logging.ClearProviders();
-                logging.AddSimpleConsole(options =>
-                {
-                    options.TimestampFormat = "dd.MM.yyyy HH:mm:ss:fff ";
-                    options.UseUtcTimestamp = true;
-                });
-                logging.SetMinimumLevel(LogLevel.Information);
             }).Build();
 
         await host.StartAsync();
         await host.StopAsync();
+    }
+
+    private static void ConfigureLogger()
+    {
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.Console(outputTemplate: "[{Level:u3} {Timestamp:dd.MM.yyyy HH:mm:ss:fff}] {Message:lj}{NewLine}{Exception}")
+            .CreateLogger();
     }
 }
