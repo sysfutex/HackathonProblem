@@ -46,7 +46,7 @@ public static class Program
     private static void ConfigureLogger()
     {
         Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Debug()
+            .MinimumLevel.Information()
             .WriteTo.Console(outputTemplate: "[{Level:u3} {Timestamp:dd.MM.yyyy HH:mm:ss:fff}] {Message:lj}{NewLine}{Exception}")
             .CreateLogger();
     }

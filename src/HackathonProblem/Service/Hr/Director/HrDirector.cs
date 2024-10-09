@@ -1,4 +1,5 @@
 using HackathonProblem.Exception;
+using HackathonProblem.Service.Hr.Director.Calculator;
 using Nsu.HackathonProblem.Contracts;
 
 namespace HackathonProblem.Service.Hr.Director;
@@ -30,7 +31,7 @@ public class HrDirector : IHrDirector
             satisfactions.Add(teamsCount - teamLeadPosition);
         }
 
-        return satisfactions.Count / satisfactions.Sum(satisfaction => 1.0 / satisfaction);
+        return HarmonicMeanCalculator.Calculate(satisfactions.AsEnumerable());
     }
 
     private int GetPosition(Wishlist wishlist, int employeeId)
