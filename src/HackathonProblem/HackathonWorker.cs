@@ -31,7 +31,7 @@ public class HackathonWorker(
 
         logger.LogDebug("_hackathonCount: {_hackathonCount}", _hackathonCount);
 
-        var average = 0.0;
+        var average = 0.0m;
         for (var i = 0; i < _hackathonCount; ++i)
         {
             try

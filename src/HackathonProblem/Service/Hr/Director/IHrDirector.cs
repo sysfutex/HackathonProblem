@@ -4,7 +4,7 @@ namespace HackathonProblem.Service.Hr.Director;
 
 public interface IHrDirector
 {
-    double CalculateHarmonicMean(
+    decimal CalculateHarmonicMean(
         IEnumerable<Team> teams,
         IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists
     );
