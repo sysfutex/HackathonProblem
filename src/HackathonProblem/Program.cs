@@ -1,8 +1,8 @@
 using HackathonProblem.Config;
 using HackathonProblem.Service.Hr.Director;
 using HackathonProblem.Service.Hr.Manager;
-using HackathonProblem.Service.Hr.Manager.Strategy;
 using HackathonProblem.Service.Registrar;
+using HackathonProblem.Strategy.Marriage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,7 +34,7 @@ public static class Program
 
                 // Регистрация зависимостей
                 services.AddSingleton<IRegistrar, Registrar>();
-                services.AddSingleton<ITeamBuildingStrategy, Marriage>();
+                services.AddSingleton<ITeamBuildingStrategy, MarriageStrategy>();
                 services.AddSingleton<IHrManager, HrManager>();
                 services.AddSingleton<IHrDirector, HrDirector>();
             }).Build();

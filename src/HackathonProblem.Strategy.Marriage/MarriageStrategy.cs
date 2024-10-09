@@ -1,9 +1,9 @@
-using HackathonProblem.Exception;
+﻿using HackathonProblem.Exception;
 using Nsu.HackathonProblem.Contracts;
 
-namespace HackathonProblem.Service.Hr.Manager.Strategy;
+namespace HackathonProblem.Strategy.Marriage;
 
-public class Marriage : ITeamBuildingStrategy
+public class MarriageStrategy : ITeamBuildingStrategy
 {
     public IEnumerable<Team> BuildTeams(
         IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors,

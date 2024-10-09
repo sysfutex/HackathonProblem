@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{AA83AE3E-F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblemTest", "test\HackathonProblemTest\HackathonProblemTest.csproj", "{936B6956-0AD9-43D6-B9DE-9675C56AE2B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.Strategy.Marriage", "src\HackathonProblem.Strategy.Marriage\HackathonProblem.Strategy.Marriage.csproj", "{5304731C-2391-492D-B219-B53BF1BBA04E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.Exception", "src\HackathonProblem.Exception\HackathonProblem.Exception.csproj", "{A0CC0956-2F2A-471F-9D24-F9B45E26EC1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,8 @@ Global
 		{40011355-0DAA-434A-A2D7-E222C48C185E} = {558BB98C-1A2B-4A14-904D-FE2449914EAE}
 		{6BFA72DB-A9D2-414B-82D0-14355B70D1AF} = {558BB98C-1A2B-4A14-904D-FE2449914EAE}
 		{936B6956-0AD9-43D6-B9DE-9675C56AE2B9} = {AA83AE3E-FC93-4923-B976-6DE5E910A1BE}
+		{5304731C-2391-492D-B219-B53BF1BBA04E} = {558BB98C-1A2B-4A14-904D-FE2449914EAE}
+		{A0CC0956-2F2A-471F-9D24-F9B45E26EC1B} = {558BB98C-1A2B-4A14-904D-FE2449914EAE}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{40011355-0DAA-434A-A2D7-E222C48C185E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -33,5 +39,13 @@ Global
 		{936B6956-0AD9-43D6-B9DE-9675C56AE2B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{936B6956-0AD9-43D6-B9DE-9675C56AE2B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{936B6956-0AD9-43D6-B9DE-9675C56AE2B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5304731C-2391-492D-B219-B53BF1BBA04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5304731C-2391-492D-B219-B53BF1BBA04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5304731C-2391-492D-B219-B53BF1BBA04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5304731C-2391-492D-B219-B53BF1BBA04E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0CC0956-2F2A-471F-9D24-F9B45E26EC1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0CC0956-2F2A-471F-9D24-F9B45E26EC1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0CC0956-2F2A-471F-9D24-F9B45E26EC1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0CC0956-2F2A-471F-9D24-F9B45E26EC1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

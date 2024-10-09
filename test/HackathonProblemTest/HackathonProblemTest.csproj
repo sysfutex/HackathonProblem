@@ -24,7 +24,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\HackathonProblem\HackathonProblem.csproj" />
-      <ProjectReference Include="..\..\src\Nsu.HackathonProblem.Contracts\Nsu.HackathonProblem.Contracts.csproj" />
     </ItemGroup>
 
 </Project>
