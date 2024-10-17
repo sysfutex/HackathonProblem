@@ -14,7 +14,7 @@ public class WishlistTest
         var juniors = new List<Employee> { new(15, "Добрынин Степан"), new(16, "Фомин Никита"), new(17, "Маркина Кристина") }.AsReadOnly();
 
         // ACT
-        var (teamLeadsWishlists, juniorsWishlists) = new Hackathon().Start(teamLeads, juniors);
+        var (teamLeadsWishlists, juniorsWishlists) = new Hackathon().GenerateWishlists(teamLeads, juniors);
 
         // ASSERT
         foreach (var teamLeadWishlist in teamLeadsWishlists)
@@ -40,7 +40,7 @@ public class WishlistTest
         var juniors = new List<Employee> { new(15, "Добрынин Степан"), certainJunior, new(17, "Маркина Кристина") }.AsReadOnly();
 
         // ACT
-        var (teamLeadsWishlists, juniorsWishlists) = new Hackathon().Start(teamLeads, juniors);
+        var (teamLeadsWishlists, juniorsWishlists) = new Hackathon().GenerateWishlists(teamLeads, juniors);
 
         // ASSERT
         foreach (var teamLeadWishlist in teamLeadsWishlists)

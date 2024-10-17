@@ -6,7 +6,7 @@ public class Hackathon : IHackathon
 {
     private readonly Random _random = new();
 
-    public (IEnumerable<Wishlist> TeamLeadsWishlists, IEnumerable<Wishlist> JuniorsWishlists) Start(
+    public (IEnumerable<Wishlist> TeamLeadsWishlists, IEnumerable<Wishlist> JuniorsWishlists) GenerateWishlists(
         IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors
     )
     {
@@ -14,12 +14,12 @@ public class Hackathon : IHackathon
         var readOnlyJuniors = juniors.ToList().AsReadOnly();
 
         return (
-            GenerateWishlists(readOnlyTeamLeads, readOnlyJuniors),
-            GenerateWishlists(readOnlyJuniors, readOnlyTeamLeads)
+            GenerateWishlistsFor(readOnlyTeamLeads, readOnlyJuniors),
+            GenerateWishlistsFor(readOnlyJuniors, readOnlyTeamLeads)
         );
     }
 
-    private IEnumerable<Wishlist> GenerateWishlists(IEnumerable<Employee> owners, IEnumerable<Employee> members)
+    private IEnumerable<Wishlist> GenerateWishlistsFor(IEnumerable<Employee> owners, IEnumerable<Employee> members)
     {
         var wishlists = new List<Wishlist>();
         var readOnlyMembers = members.ToList().AsReadOnly();

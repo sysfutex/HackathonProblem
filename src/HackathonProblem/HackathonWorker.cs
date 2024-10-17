@@ -38,7 +38,7 @@ public class HackathonWorker(
             {
                 // Проведение хакатона (составление вишлистов)
                 var hackathon = new Hackathon();
-                var (teamLeadsWishlists, juniorsWishlists) = hackathon.Start(readOnlyTeamLeads, readOnlyJuniors);
+                var (teamLeadsWishlists, juniorsWishlists) = hackathon.GenerateWishlists(readOnlyTeamLeads, readOnlyJuniors);
                 var (readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists) = (teamLeadsWishlists.ToList().AsReadOnly(), juniorsWishlists.ToList().AsReadOnly());
                 Log.Debug("readOnlyTeamLeadsWishlists: {readOnlyTeamLeadsWishlists}", readOnlyTeamLeadsWishlists);
                 Log.Debug("readOnlyJuniorsWishlists: {readOnlyJuniorsWishlists}", readOnlyJuniorsWishlists);

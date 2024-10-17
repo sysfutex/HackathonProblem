@@ -16,7 +16,7 @@ public class HrManagerTest
         var teamLeads = new List<Employee> { new(10, "Астафьев Андрей"), new(11, "Демидов Дмитрий") }.AsReadOnly();
         var juniors = new List<Employee> { new(15, "Добрынин Степан"), new(16, "Фомин Никита") }.AsReadOnly();
 
-        var (teamLeadsWishlists, juniorsWishlists) = new Hackathon().Start(teamLeads, juniors);
+        var (teamLeadsWishlists, juniorsWishlists) = new Hackathon().GenerateWishlists(teamLeads, juniors);
 
         // ACT
         var teams = new HrManager(new MarriageStrategy()).BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists).ToList().AsReadOnly();
@@ -34,7 +34,7 @@ public class HrManagerTest
         var teamLeads = new List<Employee> { new(10, "Астафьев Андрей"), new(11, "Демидов Дмитрий") }.AsReadOnly();
         var juniors = new List<Employee> { new(15, "Добрынин Степан"), new(16, "Фомин Никита") }.AsReadOnly();
 
-        var (teamLeadsWishlists, juniorsWishlists) = new Hackathon().Start(teamLeads, juniors);
+        var (teamLeadsWishlists, juniorsWishlists) = new Hackathon().GenerateWishlists(teamLeads, juniors);
         var (readOnlyTeamLeadsWishlists, readOnlyJuniorsWishlists) = (teamLeadsWishlists.ToList().AsReadOnly(), juniorsWishlists.ToList().AsReadOnly());
 
         var mockStrategy = new Mock<ITeamBuildingStrategy>();
