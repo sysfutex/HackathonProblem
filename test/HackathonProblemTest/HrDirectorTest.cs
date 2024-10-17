@@ -16,7 +16,7 @@ public class HrDirectorTest
         var similarNumbers = new List<int> { number, number, number, number, number }.AsReadOnly();
 
         // ACT
-        var harmonicMean = HarmonicMeanCalculator.Calculate(similarNumbers);
+        var harmonicMean = new HarmonicMeanCalculator().CalculateHarmony(similarNumbers);
 
         // ASSERT
         Assert.Equal(number, harmonicMean);
@@ -32,7 +32,7 @@ public class HrDirectorTest
         const decimal expected = 3.0m;
 
         // ACT
-        var harmonicMean = HarmonicMeanCalculator.Calculate(numbers);
+        var harmonicMean = new HarmonicMeanCalculator().CalculateHarmony(numbers);
 
         // ASSERT
         Assert.True(Math.Abs(expected - harmonicMean) < 0.001m);
@@ -56,7 +56,7 @@ public class HrDirectorTest
         const decimal expected = 3.0m;
 
         // ACT
-        var harmony = new HrDirector().CalculateHarmonicMean(teams, teamLeadsWishlists, juniorsWishlists);
+        var harmony = new HrDirector(new HarmonicMeanCalculator()).CalculateHarmonicMean(teams, teamLeadsWishlists, juniorsWishlists);
 
         // ASSERT
         Assert.True(Math.Abs(expected - harmony) < 0.001m);

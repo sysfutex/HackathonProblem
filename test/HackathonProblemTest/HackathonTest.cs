@@ -1,4 +1,5 @@
 using HackathonProblem.Service.Hr.Director;
+using HackathonProblem.Service.Hr.Director.Calculator;
 using HackathonProblem.Service.Hr.Manager;
 using HackathonProblem.Strategy.Marriage;
 using Nsu.HackathonProblem.Contracts;
@@ -22,7 +23,7 @@ public class HackathonTest
 
         // ACT
         var teams = new HrManager(new MarriageStrategy()).BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists).ToList().AsReadOnly();
-        var harmony = new HrDirector().CalculateHarmonicMean(teams, teamLeadsWishlists, juniorsWishlists);
+        var harmony = new HrDirector(new HarmonicMeanCalculator()).CalculateHarmonicMean(teams, teamLeadsWishlists, juniorsWishlists);
 
         // ASSERT
         Assert.True(Math.Abs(expected - harmony) < 0.001m);

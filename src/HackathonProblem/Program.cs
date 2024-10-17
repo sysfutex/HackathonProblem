@@ -1,5 +1,6 @@
 using HackathonProblem.Config;
 using HackathonProblem.Service.Hr.Director;
+using HackathonProblem.Service.Hr.Director.Calculator;
 using HackathonProblem.Service.Hr.Manager;
 using HackathonProblem.Service.Registrar;
 using HackathonProblem.Strategy.Marriage;
@@ -36,6 +37,7 @@ public static class Program
                 services.AddSingleton<IRegistrar, Registrar>();
                 services.AddSingleton<ITeamBuildingStrategy, MarriageStrategy>();
                 services.AddSingleton<IHrManager, HrManager>();
+                services.AddSingleton<IHarmonyCalculator, HarmonicMeanCalculator>();
                 services.AddSingleton<IHrDirector, HrDirector>();
             }).Build();
 

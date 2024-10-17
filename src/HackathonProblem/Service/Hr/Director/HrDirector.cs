@@ -4,7 +4,7 @@ using Nsu.HackathonProblem.Contracts;
 
 namespace HackathonProblem.Service.Hr.Director;
 
-public class HrDirector : IHrDirector
+public class HrDirector(IHarmonyCalculator harmonyCalculator) : IHrDirector
 {
     public decimal CalculateHarmonicMean(
         IEnumerable<Team> teams,
@@ -31,7 +31,7 @@ public class HrDirector : IHrDirector
             satisfactions.Add(teamsCount - teamLeadPosition);
         }
 
-        return HarmonicMeanCalculator.Calculate(satisfactions.AsEnumerable());
+        return harmonyCalculator.CalculateHarmony(satisfactions.AsEnumerable());
     }
 
     private int GetPosition(Wishlist wishlist, int employeeId)

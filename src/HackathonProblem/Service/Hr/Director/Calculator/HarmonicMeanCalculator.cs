@@ -1,8 +1,8 @@
 namespace HackathonProblem.Service.Hr.Director.Calculator;
 
-public static class HarmonicMeanCalculator
+public class HarmonicMeanCalculator : IHarmonyCalculator
 {
-    public static decimal Calculate(IEnumerable<int> satisfactions)
+    public decimal CalculateHarmony(IEnumerable<int> satisfactions)
     {
         var readOnlySatisfactions = satisfactions.ToList().AsReadOnly();
 
