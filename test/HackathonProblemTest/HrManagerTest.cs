@@ -1,4 +1,3 @@
-using HackathonProblem.Service.Hackathon;
 using HackathonProblem.Service.Hr.Manager;
 using HackathonProblem.Strategy.Marriage;
 using Moq;
@@ -20,7 +19,7 @@ public class HrManagerTest
         var juniorsWishlists = new List<Wishlist> { new(15, [10, 11]), new(16, [11, 10]) }.AsReadOnly();
 
         const int expected = 2;
-        
+
         // ACT
         var teams = new HrManager(new MarriageStrategy()).BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists).ToList().AsReadOnly();
 
