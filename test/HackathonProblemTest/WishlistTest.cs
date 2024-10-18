@@ -5,6 +5,18 @@ namespace HackathonProblemTest;
 
 public class WishlistTest
 {
+    // При несоответствии количества тимлидов количеству джунов выбрасывается исключение
+    [Fact]
+    public void TestNumberOfEmployees()
+    {
+        // ARRANGE
+        var teamLeads = new List<Employee> { new(10, "Астафьев Андрей"), new(11, "Демидов Дмитрий"), new(12, "Климов Михаил") }.AsReadOnly();
+        var juniors = new List<Employee> { new(15, "Добрынин Степан"), new(16, "Фомин Никита") }.AsReadOnly();
+
+        // ACT & ASSERT
+        Assert.Throws<ArgumentException>(() => new Hackathon().GenerateWishlists(teamLeads, juniors));
+    }
+
     // Размер списка должен совпадать с количеством тимлидов/джунов
     [Fact]
     public void TestWishlistSize()

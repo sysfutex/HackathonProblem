@@ -7,6 +7,36 @@ namespace HackathonProblemTest;
 
 public class HrManagerTest
 {
+    // При несоответствии количества тимлидов размеру вишлиста джуна выбрасывается исключение
+    [Fact]
+    public void TestNumberOfTeamLeads()
+    {
+        // ARRANGE
+        var teamLeads = new List<Employee> { new(10, "Астафьев Андрей"), new(11, "Демидов Дмитрий") }.AsReadOnly();
+        var juniors = new List<Employee> { new(15, "Добрынин Степан"), new(16, "Фомин Никита") }.AsReadOnly();
+
+        var teamLeadsWishlists = new List<Wishlist> { new(10, [15, 16]), new(11, [16, 15]) }.AsReadOnly();
+        var juniorsWishlists = new List<Wishlist> { new(15, [10]), new(16, [11, 10]) }.AsReadOnly();
+
+        // ACT & ASSERT
+        Assert.Throws<ArgumentException>(() => new HrManager(new MarriageStrategy()).BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists));
+    }
+
+    // При несоответствии количества джунов размеру вишлиста тимлида выбрасывается исключение
+    [Fact]
+    public void TestNumberOfJuniors()
+    {
+        // ARRANGE
+        var teamLeads = new List<Employee> { new(10, "Астафьев Андрей"), new(11, "Демидов Дмитрий") }.AsReadOnly();
+        var juniors = new List<Employee> { new(15, "Добрынин Степан"), new(16, "Фомин Никита") }.AsReadOnly();
+
+        var teamLeadsWishlists = new List<Wishlist> { new(10, [15, 16]), new(11, [16]) }.AsReadOnly();
+        var juniorsWishlists = new List<Wishlist> { new(15, [10, 11]), new(16, [11, 10]) }.AsReadOnly();
+
+        // ACT & ASSERT
+        Assert.Throws<ArgumentException>(() => new HrManager(new MarriageStrategy()).BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists));
+    }
+
     // Количество команд должно совпадать с заранее заданным
     [Fact]
     public void TestNumberOfTeams()

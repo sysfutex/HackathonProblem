@@ -6,6 +6,44 @@ namespace HackathonProblemTest;
 
 public class HrDirectorTest
 {
+    // При несоответствии количества команд количеству вишлистов тимлидов должно выбрасываться исключение
+    [Fact]
+    public void TestNumberOfTeamLeadsWishlists()
+    {
+        // ARRANGE
+        var teams = new List<Team>
+        {
+            new(new Employee(10, "Астафьев Андрей"), new Employee(15, "Добрынин Степан")),
+            new(new Employee(11, "Демидов Дмитрий"), new Employee(16, "Фомин Никита")),
+            new(new Employee(12, "Климов Михаил"), new Employee(17, "Маркина Кристина"))
+        }.AsReadOnly();
+
+        var teamLeadsWishlists = new List<Wishlist> { new(10, [15, 16, 17]), new(11, [16, 15, 17]) }.AsReadOnly();
+        var juniorsWishlists = new List<Wishlist> { new(15, [10, 11, 12]), new(16, [11, 10, 12]), new(17, [12, 10, 11]) }.AsReadOnly();
+
+        // ACT & ASSERT
+        Assert.Throws<ArgumentException>(() => new HrDirector(new HarmonicMeanCalculator()).CalculateHarmonicMean(teams, teamLeadsWishlists, juniorsWishlists));
+    }
+
+    // При несоответствии количества команд количеству вишлистов джунов должно выбрасываться исключение
+    [Fact]
+    public void TestNumberOfJuniorsWishlists()
+    {
+        // ARRANGE
+        var teams = new List<Team>
+        {
+            new(new Employee(10, "Астафьев Андрей"), new Employee(15, "Добрынин Степан")),
+            new(new Employee(11, "Демидов Дмитрий"), new Employee(16, "Фомин Никита")),
+            new(new Employee(12, "Климов Михаил"), new Employee(17, "Маркина Кристина"))
+        }.AsReadOnly();
+
+        var teamLeadsWishlists = new List<Wishlist> { new(10, [15, 16, 17]), new(11, [16, 15, 17]), new(12, [17, 15, 16]) }.AsReadOnly();
+        var juniorsWishlists = new List<Wishlist> { new(15, [10, 11, 12]), new(16, [11, 10, 12]) }.AsReadOnly();
+
+        // ACT & ASSERT
+        Assert.Throws<ArgumentException>(() => new HrDirector(new HarmonicMeanCalculator()).CalculateHarmonicMean(teams, teamLeadsWishlists, juniorsWishlists));
+    }
+
     // Проверка алгоритма вычисления среднего гармонического
     // Например, среднее гармоническое одинаковых чисел равно им всем 
     [Fact]

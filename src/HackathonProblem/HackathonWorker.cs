@@ -58,6 +58,10 @@ public class HackathonWorker(
             {
                 Log.Error($"An error occurred while creating the wishlist. {exception.Message}");
             }
+            catch (ArgumentException exception)
+            {
+                Log.Error($"An error occurred during the hackathon. {exception.Message}");
+            }
         }
 
         average /= _hackathonCount;

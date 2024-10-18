@@ -13,6 +13,11 @@ public class Hackathon : IHackathon
         var readOnlyTeamLeads = teamLeads.ToList().AsReadOnly();
         var readOnlyJuniors = juniors.ToList().AsReadOnly();
 
+        if (readOnlyTeamLeads.Count != readOnlyJuniors.Count)
+        {
+            throw new ArgumentException("The number of team leads does not match the number of juniors");
+        }
+
         return (
             GenerateWishlistsFor(readOnlyTeamLeads, readOnlyJuniors),
             GenerateWishlistsFor(readOnlyJuniors, readOnlyTeamLeads)

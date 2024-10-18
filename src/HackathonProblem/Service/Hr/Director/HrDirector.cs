@@ -11,6 +11,16 @@ public class HrDirector(IHarmonyCalculator harmonyCalculator) : IHrDirector
         IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists
     )
     {
+        if (teams.Count() != teamLeadsWishlists.Count())
+        {
+            throw new ArgumentException("The number of teams does not match the number of team leads' wishlists.");
+        }
+
+        if (teams.Count() != juniorsWishlists.Count())
+        {
+            throw new ArgumentException("The number of teams does not match the number of juniors' wishlists.");
+        }
+
         var readOnlyTeams = teams.ToList().AsReadOnly();
         var readOnlyTeamLeadsWishlists = teamLeadsWishlists.ToList().AsReadOnly();
         var readOnlyJuniorsWishlists = juniorsWishlists.ToList().AsReadOnly();
